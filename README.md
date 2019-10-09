@@ -3,12 +3,12 @@
 # UNAFEED 2.0 🛠 XDK Bosch
 
 1. Backend: Node.js, Express.js
-2. Backend (ML): Flask
+2. Backend (ML): Flask, Sklearn
 3. Database: MySQL
 4. Frontend: React
-5. Mobile: React Native
+5. Mobile (Android): React Native, Android Studio, Genymotion
 6. Hardware: ESP32, Arduino, XDK Bosch
-7. Code Editor: Visual Studio Code
+7. Code Editor: Visual Studio Code, XDK Workbench
 
 #
 
