@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Unafeed</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Unafeed Backend 😎</h1>
+    
+    <hr>
+    <b>user</b>
+    <ul>
+        <li><b>GET /user</b></li>
+        <li><b>GET /user/{ uid }</b></li>
+        <li><b>POST /signup</b>&emsp;body request = {"unama": "Lintang", "uemail": "lintangwisesa@ymail.com", "upassword": "12345"}</li>
+        <li><b>POST /login</b>&emsp;body request = {"uemail": "lintangwisesa@ymail.com", "upassword": "12345"}</li>
+        <li><b>PUT /update</b>&emsp;body request = {ufoto ualamat ukabkota utelp uid}</li>
+    </ul>
+
+    <hr>
+    <b>unastore product</b>
+    <ul>
+        <li><b>GET /product</b></li>
+        <li><b>GET /product/{ product_id }</b></li>
+    </ul>
+
+    <hr>
+    <b>cart</b>
+    <ul>
+        <li><b>GET /cart</b></li>
+        <li><b>GET /cart/{ user_id }</b></li>
+        <li><b>POST /cart</b>&emsp;body request = {cpid cuid cjumlah}</li>
+    </ul>
+
+    <hr>
+    <b>file</b>
+    <ul>
+        <li><b>GET /file/{ filename.extension }</b></li>
+        <li><b>POST /file</b></li>
+    </ul>
+
+    <hr>
+    <b>unasense</b>
+    <ul>
+        <li><b>GET /iot/{ unafeeder_id }</b></li>
+        <li><b>POST /iot</b>&emsp;body request = {iid, isuhuu, isuhua, ilembab, ipressu, ialti, itangki}</li>
+    </ul>
+
+</body>
+</html>
