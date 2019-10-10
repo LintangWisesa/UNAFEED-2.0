@@ -48,21 +48,21 @@ class App extends React.Component {
         {/* halaman 2 */}
         <View key="2" style={{backgroundColor:cover2.color}}>
           <TopCover warna={cover2.color} judul={cover2.judul} gambar={cover2.gambar}/>
-          <Page2/>
+          <Page2 host={this.state.host}/>
           <Footer warna={cover2.color} judul={cover2.judul} gambar={cover2.gambar}/>
         </View>
 
         {/* halaman 3 */}
         <View key="3" style={{backgroundColor:cover3.color}}>
           <TopCover warna={cover3.color} judul={cover3.judul} gambar={cover3.gambar}/>
-          <Page3/>
+          <Page3 host={this.state.host}/>
           <Footer warna={cover3.color} judul={cover3.judul} gambar={cover3.gambar}/>
         </View>
 
         {/* halaman 4 */}
         <View key="4" style={{backgroundColor:cover4.color}}>
           <TopCover warna={cover4.color} judul={cover4.judul} gambar={cover4.gambar}/>
-          <Page4/>
+          <Page4 host={this.state.host}/>
           <Footer warna={cover4.color} judul={cover4.judul} gambar={cover4.gambar}/>
         </View>
 

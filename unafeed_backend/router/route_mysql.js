@@ -244,4 +244,17 @@ router.get('/iot/:iid', (req, res) => {
     })
 })
 
+// get LATEST iot data (unasense) by id alat iid
+router.get('/iotlast/:iid', (req, res) => {
+    var dbStat = 'select * from unasense where iid = ? order by itime desc limit 1'
+    db.query(dbStat, req.params.iid, (error, output) => {
+        if(error){
+            console.log(error)
+        } else {
+            console.log(output)
+            res.send(output[0])
+        }
+    })
+})
+
 module.exports = router

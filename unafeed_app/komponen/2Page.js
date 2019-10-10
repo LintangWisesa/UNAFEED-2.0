@@ -8,9 +8,34 @@ import {
 import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
+import axios from 'axios'
 
 class Page2 extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      datalast: ''
+    }
+  }
+
+  componentDidMount(){
+    var root = '/iotlast/2611'
+    axios.get(this.props.host + root)
+    .then((x)=>{
+      this.setState({
+        datalast: x.data
+      })
+    }).catch((x)=>{
+      console.log(x)
+    })
+  }
+
   render() {
+
+    var utgl = String(this.state.datalast.itime).split('T')[0]
+    var ujam = String(this.state.datalast.itime).split('T')[1]
+
     return (
         <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -21,6 +46,9 @@ class Page2 extends React.Component {
                 <Text style={styles.sectionTitle}>
                   📊  Kondisi Terakhir Kolam
                 </Text>
+                <Text style={styles.sectionDescription}>
+                  {this.state.datalast ? `📅  ${utgl}  🕰  ${String(ujam).split('.')[0]}` : 'Unknown Timestamp'}
+                </Text>
               </View>
 
               <View style={styles.sectionContainer}>
@@ -30,7 +58,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Udara (°C)</Text>
                       <Text style={{fontSize: 30}}>
-                        1000
+                        {this.state.datalast ? this.state.datalast.isuhuu : 0}
                       </Text>
                     </View>
                   </View>
@@ -38,7 +66,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Air (°C)</Text>
                       <Text style={{fontSize: 30}}>
-                        1000
+                        {this.state.datalast ? this.state.datalast.isuhua : 0}
                       </Text>
                     </View>
                   </View>
@@ -46,7 +74,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 12}}>Kelembaban (%)</Text>
                       <Text style={{fontSize: 30}}>
-                        1000
+                        {this.state.datalast ? this.state.datalast.ilembab : 0}
                       </Text>
                     </View>
                   </View>
@@ -57,7 +85,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 11}}>Tekanan Udara (Pa)</Text>
                       <Text style={{fontSize: 30}}>
-                        1000
+                        {this.state.datalast ? this.state.datalast.ipressu : 0}
                       </Text>
                     </View>
                   </View>
@@ -65,7 +93,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 12}}>Altitude (m)</Text>
                       <Text style={{fontSize: 30}}>
-                        1000
+                        {this.state.datalast ? this.state.datalast.ialti : 0}
                       </Text>
                     </View>
                   </View>
@@ -73,7 +101,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 12}}>Tangki (%)</Text>
                       <Text style={{fontSize: 30}}>
-                        1000
+                        {this.state.datalast ? this.state.datalast.itangki : 0}
                       </Text>
                     </View>
                   </View>
