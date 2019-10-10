@@ -5,7 +5,8 @@ import {
   View,
   Text, 
   Button, 
-  Image
+  Image,
+  Alert,
 } from 'react-native';
 import {
     Colors
@@ -17,14 +18,13 @@ class Page1 extends React.Component {
   constructor(){
     super()
     this.state = {
-      host: 'http://172.16.1.63:1234',
       profil: ''
     }
   }
 
   componentDidMount(){
     var root = '/user/1'
-    axios.get(this.state.host + root)
+    axios.get(this.props.host + root)
     .then((x)=>{
       this.setState({
         profil: x.data[0]
@@ -35,12 +35,18 @@ class Page1 extends React.Component {
   }
 
   render() {
+
+    var utglreg = String(this.state.profil.utglreg).split('T')[0]
+    var ujamreg = String(this.state.profil.utglreg).split('T')[1]
+    var utglupdate = String(this.state.profil.utglupdate).split('T')[0]
+    var ujamupdate = String(this.state.profil.utglupdate).split('T')[1]
+
     return (
         <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={styles.scrollView}>
             <View style={styles.body}>
-  
+
               <View style={styles.sectionContainer}>
                 <View style={{flexDirection: 'row', marginTop: 10}}>
                   
@@ -50,7 +56,7 @@ class Page1 extends React.Component {
                     this.state.profil ?
                     <Image
                     style={{width: 90, height: 90}}
-                    source={{uri: this.state.host + '/file/f' + this.state.profil.unama + '.jpg'}}
+                    source={{uri: this.props.host + '/file/f' + this.state.profil.unama + '.jpg'}}
                     /> :
                     <Image
                     style={{width: 90, height: 90}}
@@ -67,25 +73,56 @@ class Page1 extends React.Component {
                     <Text style={styles.sectionDescription}>
                       {this.state.profil ? this.state.profil.uemail : 'Anonymous Email'}
                     </Text>
+                    <Button
+                      style={{width:100}}
+                      title="👨 Edit Profile"
+                      color='#20B2AA'
+                      onPress={() => Alert.alert('🚧  Maaf sedang perbaikan  🚧')}
+                    />
                   </View>
                 </View>
               </View>
               
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>
-                    Halaman Home
-                </Text>
-                <Text style={styles.sectionDescription}>
-                  Lorem ipsum dolor sit amet
-                </Text>
-              </View>
+              <View style={styles.separator}/>
               
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>
-                    Menu 1
+                    Biodata User
                 </Text>
                 <Text style={styles.sectionDescription}>
-                  Lorem ipsum dolor sit amet
+                  👨  {this.state.profil ? this.state.profil.unama : 'Anonymous Name'}
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  📧  {this.state.profil ? this.state.profil.uemail : 'Anonymous Email'}
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  🔒  {this.state.profil ? '• • • • • • • • • •' : 'Anonymous Password'}
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  📍  {this.state.profil ? this.state.profil.ualamat : 'Unknown Address'}
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  🗺  {this.state.profil ? this.state.profil.ukabkota : 'Unknown City'}
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  📞  {this.state.profil ? this.state.profil.utelp : 'Unknown Telephone'}
+                </Text>
+              </View>
+
+              <View style={styles.separator}/> 
+              
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionDescription}>
+                  <Text style={styles.highlight}>Register :</Text>
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  {this.state.profil ? `📅  ${utglreg}  🕰  ${String(ujamreg).split('.')[0]}` : 'Unknown Register'}
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  <Text style={styles.highlight}>Last Update :</Text>
+                </Text>
+                <Text style={styles.sectionDescription}>
+                  {this.state.profil ? `📅  ${utglupdate}  🕰  ${String(ujamupdate).split('.')[0]}` : 'Unknown LastUpdate'}
                 </Text>
               </View>
 
@@ -112,13 +149,18 @@ const styles = StyleSheet.create({
     color: Colors.black,
   },
   sectionDescription: {
-    marginTop: 8,
+    marginVertical: 4,
     fontSize: 14,
     fontWeight: '400',
     color: Colors.dark,
   },
   highlight: {
     fontWeight: '700',
+  },
+  separator: {
+    marginVertical: 10,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 })
 

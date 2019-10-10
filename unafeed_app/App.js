@@ -14,8 +14,18 @@ import Page1 from './komponen/1Page'
 import Page2 from './komponen/2Page'
 import Page3 from './komponen/3Page'
 import Page4 from './komponen/4Page'
+import Footer from './komponen/0Footer'
 
 class App extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      // host backend
+      host: 'http://172.16.31.85:1234'  
+    }
+  }
+
   render() {
 
     var cover1 = {judul: '🏡 Beranda Unafeed', color: '#fd5c63', gambar: require('./komponen/cover1.jpg')}
@@ -31,25 +41,29 @@ class App extends React.Component {
         {/* halaman 1 */}
         <View key="1" style={{backgroundColor:cover1.color}}>
           <FirstCover warna={cover1.color} judul={cover1.judul} gambar={cover1.gambar}/>
-          <Page1/>
+          <Page1 host={this.state.host}/>
+          <Footer warna={cover1.color} judul={cover1.judul} gambar={cover1.gambar}/>
         </View>
 
         {/* halaman 2 */}
         <View key="2" style={{backgroundColor:cover2.color}}>
           <TopCover warna={cover2.color} judul={cover2.judul} gambar={cover2.gambar}/>
           <Page2/>
+          <Footer warna={cover2.color} judul={cover2.judul} gambar={cover2.gambar}/>
         </View>
 
         {/* halaman 3 */}
         <View key="3" style={{backgroundColor:cover3.color}}>
           <TopCover warna={cover3.color} judul={cover3.judul} gambar={cover3.gambar}/>
           <Page3/>
+          <Footer warna={cover3.color} judul={cover3.judul} gambar={cover3.gambar}/>
         </View>
 
         {/* halaman 4 */}
         <View key="4" style={{backgroundColor:cover4.color}}>
           <TopCover warna={cover4.color} judul={cover4.judul} gambar={cover4.gambar}/>
           <Page4/>
+          <Footer warna={cover4.color} judul={cover4.judul} gambar={cover4.gambar}/>
         </View>
 
       </ViewPager>

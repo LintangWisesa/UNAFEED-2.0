@@ -16,6 +16,32 @@ class Page2 extends React.Component {
         contentInsetAdjustmentBehavior="automatic"
         style={styles.scrollView}>
             <View style={styles.body}>
+
+              <View style={styles.sectionContainer}>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'powderblue'}}>
+
+                  </View>
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'skyblue'}}>
+
+                  </View>
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'steelblue'}}>
+
+                  </View>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'skyblue'}}>
+
+                  </View>
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'steelblue'}}>
+
+                  </View>
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'powderblue'}}>
+                    
+                  </View>
+                </View>
+              </View>
+
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>
                     Halaman UnaSense
@@ -24,6 +50,7 @@ class Page2 extends React.Component {
                   Lorem ipsum dolor sit amet
                 </Text>
               </View>
+              
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>
                     Menu 2
@@ -32,6 +59,7 @@ class Page2 extends React.Component {
                   Lorem ipsum dolor sit amet
                 </Text>
               </View>
+
             </View>
         </ScrollView>
     );
