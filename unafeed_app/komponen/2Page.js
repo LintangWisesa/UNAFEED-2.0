@@ -18,29 +18,69 @@ class Page2 extends React.Component {
             <View style={styles.body}>
 
               <View style={styles.sectionContainer}>
+                <Text style={styles.sectionTitle}>
+                  📊  Kondisi Terakhir Kolam
+                </Text>
+              </View>
+
+              <View style={styles.sectionContainer}>
+                {/* row 1 */}
                 <View style={{flexDirection: 'row'}}>
-                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'powderblue'}}>
-
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 203, 5,0.4)'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Udara (°C)</Text>
+                      <Text style={{fontSize: 30}}>
+                        1000
+                      </Text>
+                    </View>
                   </View>
-                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'skyblue'}}>
-
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(34, 167, 240,0.4)'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Air (°C)</Text>
+                      <Text style={{fontSize: 30}}>
+                        1000
+                      </Text>
+                    </View>
                   </View>
-                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'steelblue'}}>
-
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(191, 85, 236,0.4)'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Kelembaban (%)</Text>
+                      <Text style={{fontSize: 30}}>
+                        1000
+                      </Text>
+                    </View>
                   </View>
                 </View>
+                {/* row 2 */}
                 <View style={{flexDirection: 'row'}}>
-                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'skyblue'}}>
-
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(46, 204, 113,0.4)'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+                      <Text style={{paddingVertical: 10, fontSize: 11}}>Tekanan Udara (Pa)</Text>
+                      <Text style={{fontSize: 30}}>
+                        1000
+                      </Text>
+                    </View>
                   </View>
-                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'steelblue'}}>
-
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 148, 120,0.4)'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Altitude (m)</Text>
+                      <Text style={{fontSize: 30}}>
+                        1000
+                      </Text>
+                    </View>
                   </View>
-                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'powderblue'}}>
-                    
+                  <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(75,192,192,0.4)'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Tangki (%)</Text>
+                      <Text style={{fontSize: 30}}>
+                        1000
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
+
+              <View style={styles.separator}/>
 
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>
@@ -90,6 +130,11 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  separator: {
+    marginVertical: 10,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 })
 
