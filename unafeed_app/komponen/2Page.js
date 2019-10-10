@@ -46,12 +46,14 @@ class Page2 extends React.Component {
                 <Text style={styles.sectionTitle}>
                   📊  Kondisi Terakhir Kolam
                 </Text>
-                <Text style={styles.sectionDescription}>
-                  {this.state.datalast ? `📅  ${utgl}  🕰  ${String(ujam).split('.')[0]}` : 'Unknown Timestamp'}
-                </Text>
               </View>
 
               <View style={styles.sectionContainer}>
+                <View style={{marginBottom:10}}>
+                  <Text style={styles.sectionDescriptionCenter}>
+                    {this.state.datalast ? `📅  ${utgl}  🕰  ${String(ujam).split('.')[0]}` : 'Unknown Timestamp'}
+                  </Text>
+                </View>
                 {/* row 1 */}
                 <View style={{flexDirection: 'row'}}>
                   <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 148, 120,0.4)'}}>
@@ -152,6 +154,12 @@ const styles = StyleSheet.create({
   },
   sectionDescription: {
     marginTop: 8,
+    fontSize: 14,
+    fontWeight: '400',
+    color: Colors.dark,
+  },
+  sectionDescriptionCenter: {
+    textAlign: 'center',
     fontSize: 14,
     fontWeight: '400',
     color: Colors.dark,

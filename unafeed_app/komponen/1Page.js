@@ -73,12 +73,13 @@ class Page1 extends React.Component {
                     <Text style={styles.sectionDescription}>
                       {this.state.profil ? this.state.profil.uemail : 'Anonymous Email'}
                     </Text>
-                    <Button
-                      style={{width:100}}
-                      title="👨 Edit Profile"
-                      color='#20B2AA'
-                      onPress={() => Alert.alert('🚧  Maaf sedang perbaikan  🚧')}
-                    />
+                    <View style={{width:80, marginTop: 3}}>
+                      <Button
+                        title="📝  Edit"
+                        color='#20B2AA'
+                        onPress={() => Alert.alert('🚧  Maaf sedang perbaikan  🚧')}
+                      />
+                    </View>
                   </View>
                 </View>
               </View>
