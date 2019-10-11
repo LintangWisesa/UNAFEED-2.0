@@ -70,10 +70,11 @@ class UnaStore extends Component{
 
     render(){
 
+        var star = '⭐'
         var produkList = this.state.produk.map((val, i)=>{
             return (
                 <div key={i} className="col-lg-4 col-sm-6 mb-5">
-                    <div className="box20">
+                    <div className="box20" onClick={() => {this.passToModal(val)}} data-toggle="modal" data-target="#cartModal">
                         <img src={val.pfoto} alt="" className="img-fluid" />
                         <div className="box-content">
                             <h3 className="title">
@@ -88,9 +89,14 @@ class UnaStore extends Component{
                         <div className='col-sm-8'>
                             <h3 className='font-weight-bold'>{val.pnama}</h3> 
                             <p className='mt-1'>
-                                <i className="text-warning fas fa-star"></i>&nbsp;{val.prating}
-                                &nbsp;&nbsp;
-                                <i className="text-warning fas fa-money-bill-wave"></i>&nbsp;Rp {val.pharga} <small>/{val.psatuan}</small>
+                                {star.repeat(parseInt(val.prating))}
+                            </p>
+                            <p className='mt-1' style={{fontWeight:'bold'}}>
+                                <i className="text-warning fas fa-money-bill-wave"></i>
+                                &nbsp;Rp {val.pharga} 
+                                <small style={{fontWeight:'bold'}}>
+                                    /{val.psatuan}
+                                </small>
                             </p>
                         </div>
                         <div className='text-right col-sm-4'>
@@ -158,9 +164,13 @@ class UnaStore extends Component{
                             </div>
                             <div className='col-sm-8'>
                                 <p className='text-dark mt-1'>
-                                    <i className="text-warning fas fa-star"></i>&nbsp;{this.state.produkTerpilih.prating}
-                                    &nbsp;&nbsp;
-                                    <i className="text-warning fas fa-money-bill-wave"></i>&nbsp;Rp {this.state.produkTerpilih.pharga} <small>/{this.state.produkTerpilih.psatuan}</small>
+                                    {star.repeat(parseInt(this.state.produkTerpilih.prating))}
+                                </p>
+                                <p className='text-dark mt-1' style={{fontWeight:'bold'}}>
+                                    <i className="text-warning fas fa-money-bill-wave"></i>&nbsp;Rp {this.state.produkTerpilih.pharga} 
+                                    <small style={{fontWeight:'bold'}}>
+                                        /{this.state.produkTerpilih.psatuan}
+                                    </small>
                                 </p>
                                 <hr/>
                                 <p className='text-dark'>

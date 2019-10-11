@@ -27,6 +27,7 @@ class UserCart extends Component{
 
     render(){
 
+        var star = '⭐'
         var listCart = this.state.keranjang.map((val, i)=>{
             return (
                 <div className="card w-100">
@@ -62,9 +63,13 @@ class UserCart extends Component{
                             <div className='mt-3 col-sm-10'>
                                 <h3 className='font-weight-bold'>{val.pnama}</h3> 
                                 <p className='mt-1'>
-                                    <i className="text-warning fas fa-star"></i>&nbsp;Rating {val.prating}
-                                    &nbsp;&nbsp;
-                                    <i className="text-warning fas fa-money-bill-wave"></i>&nbsp;Rp {val.pharga} <small>/{val.psatuan}</small>
+                                    {star.repeat(parseInt(val.prating))}
+                                </p>
+                                <p className='mt-1' style={{fontWeight:'bold'}}>
+                                    <i className="text-warning fas fa-money-bill-wave"></i>&nbsp;Rp {val.pharga} 
+                                    <small style={{fontWeight:'bold'}}>
+                                        /{val.psatuan}
+                                    </small>
                                 </p>
                                 <p>{val.pdeskripsi}</p>
                             </div>
