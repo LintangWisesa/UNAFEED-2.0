@@ -116,10 +116,12 @@ class UnaStore extends Component{
                 <section className="py-5 team-w3ls" id="best">
                     
                     <div className="container">
-                        <h3 className="title-w3 pt-sm-5 text-wh font-weight-bold">
-                            UnaStore
-                        </h3>
-                        <p>Lengkapi kebutuhan budidaya sidat Anda bersama <b>UnaStore</b></p>
+                        <div>
+                            <h3 className="title-w3 pt-sm-5 text-wh font-weight-bold">
+                                UnaStore
+                            </h3>
+                            <p>Lengkapi kebutuhan budidaya sidat Anda bersama <b>UnaStore</b></p>
+                        </div>
                         <div className="d-flex team-w3ls-row pt-xl-5 pt-md-3">
                             
                             {produkList}
