@@ -4,17 +4,22 @@ import {
   StyleSheet,
   View,
   Text,
+  Dimensions,
 } from 'react-native';
 import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
 import axios from 'axios'
+import {
+  LineChart,
+} from "react-native-chart-kit";
 
 class Page2 extends React.Component {
 
   constructor(){
     super()
     this.state = {
+      isuhuu: [], isuhua: [], ilembab: [], ipressu: [], ialti: [], itangki: [],
       datalast: ''
     }
   }
@@ -29,12 +34,75 @@ class Page2 extends React.Component {
     }).catch((x)=>{
       console.log(x)
     })
+
+    var root2 = '/iot/2611'
+    axios.get(this.props.host + root2)
+    .then((x)=>{
+      this.setState({
+        isuhuu: x.data.map((val, i) => parseFloat(val.isuhuu)),
+        isuhua: x.data.map((val, i) => parseFloat(val.isuhua)),
+        ilembab: x.data.map((val, i) => parseFloat(val.ilembab)),
+        ipressu: x.data.map((val, i) => parseFloat(val.ipressu)),
+        ialti: x.data.map((val, i) => parseFloat(val.ialti)),
+        itangki: x.data.map((val, i) => parseFloat(val.itangki)),
+      })
+    }).catch((x)=>{
+      console.log(x)
+    })
   }
 
   render() {
 
     var utgl = String(this.state.datalast.itime).split('T')[0]
     var ujam = String(this.state.datalast.itime).split('T')[1]
+    
+    const dataSuhuUdara = {
+      datasets: [
+          {
+          data: [29.8, 29.8, 29.8, 29.8, 29.9, 29.9, 29.9, 29.9, 30, 30]
+          }
+      ]
+    }
+
+    const dataSuhuAir = {
+      datasets: [
+          {
+          data: [18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3]
+          }
+      ]
+    }
+
+    const dataLembab = {
+      datasets: [
+          {
+          data: [18, 25, 28, 18, 18, 18, 22, 18, 18, 18]
+          }
+      ]
+    }
+
+    const dataPressu = {
+      datasets: [
+          {
+          data: [96565, 96571, 96566, 96567, 96563, 96573, 96571, 96562, 96567, 96572]
+          }
+      ]
+    }
+
+    const dataAlti = {
+      datasets: [
+          {
+          data: [403.37, 403.97, 404.23, 404.15, 403.8, 404.06, 403.89, 403.97, 403.45, 403.8]
+          }
+      ]
+    }
+
+    const dataTangki = {
+      datasets: [
+          {
+          data: [52, 52, 52, 52, 52, 52, 52, 52, 52, 52]
+          }
+      ]
+    }
 
     return (
         <ScrollView
@@ -112,24 +180,186 @@ class Page2 extends React.Component {
 
               <View style={styles.separator}/>
 
+              {/* chart Suhu Udara */}
               <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>
-                    Halaman UnaSense
+                <Text>
+                  📈  History Suhu Udara (°C)
                 </Text>
-                <Text style={styles.sectionDescription}>
-                  Lorem ipsum dolor sit amet
-                </Text>
+                <LineChart
+                  data={dataSuhuUdara}
+                  width={Dimensions.get("window").width - 50} // from react-native
+                  height={220}
+                  yAxisLabel={""}
+                  chartConfig={{
+                    backgroundColor: "#f9665e",
+                    backgroundGradientFrom: "#f9665e",
+                    backgroundGradientTo: "#f9665e",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `black`,
+                  labelColor: (opacity = 1) => `black`,
+                  style: {
+                    borderRadius: 16
+                  }
+                  }}
+                  style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                  }}
+                />
               </View>
               
+              <View style={styles.separator}/>
+
+              {/* chart Suhu Air */}
               <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>
-                    Menu 2
+                <Text>
+                  📈  History Suhu Air (°C)
                 </Text>
-                <Text style={styles.sectionDescription}>
-                  Lorem ipsum dolor sit amet
-                </Text>
+                <LineChart
+                  data={dataSuhuAir}
+                  width={Dimensions.get("window").width - 50} // from react-native
+                  height={220}
+                  yAxisLabel={""}
+                  chartConfig={{
+                    backgroundColor: "#fbd6c6",
+                    backgroundGradientFrom: "#fbd6c6",
+                    backgroundGradientTo: "#fbd6c6",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `black`,
+                  labelColor: (opacity = 1) => `black`,
+                  style: {
+                    borderRadius: 16
+                  }
+                  }}
+                  style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                  }}
+                />
               </View>
 
+              <View style={styles.separator}/>
+
+              {/* chart lembab */}
+              <View style={styles.sectionContainer}>
+                <Text>
+                  📈  History Kelembaban (%)
+                </Text>
+                <LineChart
+                  data={dataLembab}
+                  width={Dimensions.get("window").width - 50} // from react-native
+                  height={220}
+                  yAxisLabel={""}
+                  chartConfig={{
+                    backgroundColor: "#f7ebc3",
+                    backgroundGradientFrom: "#f7ebc3",
+                    backgroundGradientTo: "#f7ebc3",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `black`,
+                  labelColor: (opacity = 1) => `black`,
+                  style: {
+                    borderRadius: 16
+                  }
+                  }}
+                  style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                  }}
+                />
+              </View>
+
+              <View style={styles.separator}/>
+
+              {/* chart Tek udara */}
+              <View style={styles.sectionContainer}>
+                <Text>
+                  📈  History Tekanan Udara (Pa)
+                </Text>
+                <LineChart
+                  data={dataPressu}
+                  width={Dimensions.get("window").width - 50} // from react-native
+                  height={220}
+                  yAxisLabel={""}
+                  chartConfig={{
+                    backgroundColor: "#bed7d1",
+                    backgroundGradientFrom: "#bed7d1",
+                    backgroundGradientTo: "#bed7d1",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `black`,
+                  labelColor: (opacity = 1) => `black`,
+                  style: {
+                    borderRadius: 16
+                  }
+                  }}
+                  style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                  }}
+                />
+              </View>
+
+              <View style={styles.separator}/>
+
+              {/* chart Altitude */}
+              <View style={styles.sectionContainer}>
+                <Text>
+                  📈  History Altitude (m)
+                </Text>
+                <LineChart
+                  data={dataAlti}
+                  width={Dimensions.get("window").width - 50} // from react-native
+                  height={220}
+                  yAxisLabel={""}
+                  chartConfig={{
+                    backgroundColor: "#95b4cc",
+                    backgroundGradientFrom: "#95b4cc",
+                    backgroundGradientTo: "#95b4cc",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `black`,
+                  labelColor: (opacity = 1) => `black`,
+                  style: {
+                    borderRadius: 16
+                  }
+                  }}
+                  style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                  }}
+                />
+              </View>
+
+              <View style={styles.separator}/>
+
+              {/* chart Tangki */}
+              <View style={styles.sectionContainer}>
+                <Text>
+                  📈  History Kapasitas Tangki (%)
+                </Text>
+                <LineChart
+                  data={dataTangki}
+                  width={Dimensions.get("window").width - 50} // from react-native
+                  height={220}
+                  yAxisLabel={""}
+                  chartConfig={{
+                    backgroundColor: "#fec9c9",
+                    backgroundGradientFrom: "#fec9c9",
+                    backgroundGradientTo: "#fec9c9",
+                    decimalPlaces: 2, // optional, defaults to 2dp
+                  color: (opacity = 1) => `black`,
+                  labelColor: (opacity = 1) => `black`,
+                  style: {
+                    borderRadius: 16
+                  }
+                  }}
+                  style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                  }}
+                />
+              </View>
+
+              <View style={styles.separator}/>
+            
             </View>
         </ScrollView>
     );

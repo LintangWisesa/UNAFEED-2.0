@@ -44,7 +44,7 @@ class Page4 extends React.Component {
       </View>
     var listProduk = this.state.produk.map((val, i)=>{
       return(
-        <>
+        <View key={i}>
         <View key={i} style={styles.sectionContainer}>
           <View style={{flexDirection: 'row', marginTop: 10}}>
             {/* product picture */}
@@ -76,7 +76,7 @@ class Page4 extends React.Component {
           </View>
         </View>
         <View style={styles.separator}/>
-        </>
+        </View>
       )
     })
 
