@@ -13,5 +13,10 @@ setup server : HttpRestClient {
 }
 
 every 5 seconds {
-  server.root.write("myMessageToPost");
+  var x = 2;
+  var json = `{ data : ${x}}`;
+  println(json);
+
+  // server.root.write("myMessageToPost");
+  server.root.write(json);
 }
