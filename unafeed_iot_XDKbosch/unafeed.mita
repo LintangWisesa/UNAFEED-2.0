@@ -1,4 +1,4 @@
-// control mixer, extruder & stop
+// control mixer, extruder & stop dg sound buzzer
 
 package main;
 import platforms.xdk110;
@@ -6,15 +6,18 @@ import platforms.xdk110;
 setup pin : GPIO {
 	var out0 = digitalOut(PA0, false);  // led 0 on PA0 with resistor 220ohm
     var out1 = digitalOut(PA1, false);	// led 1 on PA1 with resistor 220ohm
+    var buz = digitalOut(PB2, false);
 }
 
 var toogle = true;
 every button_one.pressed {
 	if(toogle){
+        pin.buz.write(true);
 		pin.out0.write(true);
 		pin.out1.write(false);
 		toogle = false;
 	} else {
+        pin.buz.write(true);
 		pin.out0.write(false);
 		pin.out1.write(true);
 		toogle = true;
@@ -22,9 +25,18 @@ every button_one.pressed {
 }
 
 every button_two.pressed {
-	pin.out0.write(false);
+	pin.buz.write(true);
+    pin.out0.write(false);
 	pin.out1.write(false);
 	toogle = false;	
+}
+
+every button_one.released {
+    pin.buz.write(false);
+}
+
+every button_two.released {
+    pin.buz.write(false);
 }
 
 // tekan tombol 1 1x = mixer
