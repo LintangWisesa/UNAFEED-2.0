@@ -19,13 +19,13 @@ class Page2 extends React.Component {
   constructor(){
     super()
     this.state = {
-      isuhuu: [], isuhua: [], ilembab: [], ipressu: [], ialti: [], itangki: [],
+      xsuhu: [], xdo: [], xph: [], xamonia: [], xtds: [], xtangki: [],
       datalast: ''
     }
   }
 
   componentDidMount(){
-    var root = '/iotlast/2611'
+    var root = '/xdklast/2611'
     axios.get(this.props.host + root)
     .then((x)=>{
       this.setState({
@@ -35,16 +35,16 @@ class Page2 extends React.Component {
       console.log(x)
     })
 
-    var root2 = '/iot/2611'
+    var root2 = '/xdk/2611'
     axios.get(this.props.host + root2)
     .then((x)=>{
       this.setState({
-        isuhuu: x.data.map((val, i) => parseFloat(val.isuhuu)),
-        isuhua: x.data.map((val, i) => parseFloat(val.isuhua)),
-        ilembab: x.data.map((val, i) => parseFloat(val.ilembab)),
-        ipressu: x.data.map((val, i) => parseFloat(val.ipressu)),
-        ialti: x.data.map((val, i) => parseFloat(val.ialti)),
-        itangki: x.data.map((val, i) => parseFloat(val.itangki)),
+        xsuhu: x.data.map((val, i) => parseFloat(val.xsuhu)),
+        xdo: x.data.map((val, i) => parseFloat(val.xdo)),
+        xph: x.data.map((val, i) => parseFloat(val.xph)),
+        xamonia: x.data.map((val, i) => parseFloat(val.xamonia)),
+        xtds: x.data.map((val, i) => parseFloat(val.xtds)),
+        xtangki: x.data.map((val, i) => parseFloat(val.xtangki)),
       })
     }).catch((x)=>{
       console.log(x)
@@ -53,45 +53,45 @@ class Page2 extends React.Component {
 
   render() {
 
-    var utgl = String(this.state.datalast.itime).split('T')[0]
-    var ujam = String(this.state.datalast.itime).split('T')[1]
+    var utgl = String(this.state.datalast.xtime).split('T')[0]
+    var ujam = String(this.state.datalast.xtime).split('T')[1]
     
-    const dataSuhuUdara = {
-      datasets: [
-          {
-          data: [29.8, 29.8, 29.8, 29.8, 29.9, 29.9, 29.9, 29.9, 30, 30]
-          }
-      ]
-    }
-
     const dataSuhuAir = {
       datasets: [
           {
-          data: [18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3, 18.3]
+          data: [25.4, 25.1, 25.4, 25, 25.2, 25.2]
           }
       ]
     }
 
-    const dataLembab = {
+    const dataDo = {
       datasets: [
           {
-          data: [18, 25, 28, 18, 18, 18, 22, 18, 18, 18]
+          data: [6.5, 6.1, 6.2, 5.9, 6, 6]
           }
       ]
     }
 
-    const dataPressu = {
+    const dataPh = {
       datasets: [
           {
-          data: [96565, 96571, 96566, 96567, 96563, 96573, 96571, 96562, 96567, 96572]
+          data: [7.3, 7, 7.3, 7.1, 7, 7]
           }
       ]
     }
 
-    const dataAlti = {
+    const dataAmonia = {
       datasets: [
           {
-          data: [403.37, 403.97, 404.23, 404.15, 403.8, 404.06, 403.89, 403.97, 403.45, 403.8]
+          data: [0.019, 0.025, 0.021, 0.022, 0.02, 0.02]
+          }
+      ]
+    }
+
+    const dataTds = {
+      datasets: [
+          {
+          data: [253.2, 257, 252, 253, 250, 250]
           }
       ]
     }
@@ -99,7 +99,7 @@ class Page2 extends React.Component {
     const dataTangki = {
       datasets: [
           {
-          data: [52, 52, 52, 52, 52, 52, 52, 52, 52, 52]
+          data: [46, 49, 47, 47, 48, 48]
           }
       ]
     }
@@ -126,25 +126,25 @@ class Page2 extends React.Component {
                 <View style={{flexDirection: 'row'}}>
                   <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 148, 120,0.4)'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-                      <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Udara (°C)</Text>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Air (°C)</Text>
                       <Text style={{fontSize: 30}}>
-                        {this.state.datalast ? this.state.datalast.isuhuu : 0}
+                        {this.state.datalast ? this.state.datalast.xsuhu : 0}
                       </Text>
                     </View>
                   </View>
                   <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 203, 5,0.4)'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-                      <Text style={{paddingVertical: 10, fontSize: 12}}>Suhu Air (°C)</Text>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>DO (mg/L)</Text>
                       <Text style={{fontSize: 30}}>
-                        {this.state.datalast ? this.state.datalast.isuhua : 0}
+                        {this.state.datalast ? this.state.datalast.xdo : 0}
                       </Text>
                     </View>
                   </View>
                   <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 148, 120,0.4)'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-                      <Text style={{paddingVertical: 10, fontSize: 12}}>Kelembaban (%)</Text>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>Ph</Text>
                       <Text style={{fontSize: 30}}>
-                        {this.state.datalast ? this.state.datalast.ilembab : 0}
+                        {this.state.datalast ? this.state.datalast.xph : 0}
                       </Text>
                     </View>
                   </View>
@@ -153,17 +153,17 @@ class Page2 extends React.Component {
                 <View style={{flexDirection: 'row'}}>
                   <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 203, 5,0.4)'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-                      <Text style={{paddingVertical: 10, fontSize: 11}}>Tekanan Udara (Pa)</Text>
+                      <Text style={{paddingVertical: 10, fontSize: 11}}>Amonia (mg/L)</Text>
                       <Text style={{fontSize: 30}}>
-                        {this.state.datalast ? this.state.datalast.ipressu : 0}
+                        {this.state.datalast ? this.state.datalast.xamonia : 0}
                       </Text>
                     </View>
                   </View>
                   <View style={{flex:1, width: 90, height: 90, backgroundColor: 'rgba(255, 148, 120,0.4)'}}>
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
-                      <Text style={{paddingVertical: 10, fontSize: 12}}>Altitude (m)</Text>
+                      <Text style={{paddingVertical: 10, fontSize: 12}}>TDS (mg/L)</Text>
                       <Text style={{fontSize: 30}}>
-                        {this.state.datalast ? this.state.datalast.ialti : 0}
+                        {this.state.datalast ? this.state.datalast.xtds : 0}
                       </Text>
                     </View>
                   </View>
@@ -171,7 +171,7 @@ class Page2 extends React.Component {
                     <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}}>
                       <Text style={{paddingVertical: 10, fontSize: 12}}>Tangki (%)</Text>
                       <Text style={{fontSize: 30}}>
-                        {this.state.datalast ? this.state.datalast.itangki : 0}
+                        {this.state.datalast ? this.state.datalast.xtangki : 0}
                       </Text>
                     </View>
                   </View>
@@ -183,10 +183,10 @@ class Page2 extends React.Component {
               {/* chart Suhu Udara */}
               <View style={styles.sectionContainer}>
                 <Text>
-                  📈  History Suhu Udara (°C)
+                  📈  History Suhu Air (°C)
                 </Text>
                 <LineChart
-                  data={dataSuhuUdara}
+                  data={dataSuhuAir}
                   width={Dimensions.get("window").width - 50} // from react-native
                   height={220}
                   yAxisLabel={""}
@@ -213,10 +213,10 @@ class Page2 extends React.Component {
               {/* chart Suhu Air */}
               <View style={styles.sectionContainer}>
                 <Text>
-                  📈  History Suhu Air (°C)
+                  📈  History DO (mg/L)
                 </Text>
                 <LineChart
-                  data={dataSuhuAir}
+                  data={dataDo}
                   width={Dimensions.get("window").width - 50} // from react-native
                   height={220}
                   yAxisLabel={""}
@@ -243,10 +243,10 @@ class Page2 extends React.Component {
               {/* chart lembab */}
               <View style={styles.sectionContainer}>
                 <Text>
-                  📈  History Kelembaban (%)
+                  📈  History Ph
                 </Text>
                 <LineChart
-                  data={dataLembab}
+                  data={dataPh}
                   width={Dimensions.get("window").width - 50} // from react-native
                   height={220}
                   yAxisLabel={""}
@@ -273,10 +273,10 @@ class Page2 extends React.Component {
               {/* chart Tek udara */}
               <View style={styles.sectionContainer}>
                 <Text>
-                  📈  History Tekanan Udara (Pa)
+                  📈  History Kadar Amonia (mg/L)
                 </Text>
                 <LineChart
-                  data={dataPressu}
+                  data={dataAmonia}
                   width={Dimensions.get("window").width - 50} // from react-native
                   height={220}
                   yAxisLabel={""}
@@ -303,10 +303,10 @@ class Page2 extends React.Component {
               {/* chart Altitude */}
               <View style={styles.sectionContainer}>
                 <Text>
-                  📈  History Altitude (m)
+                  📈  History TDS (mg/L)
                 </Text>
                 <LineChart
-                  data={dataAlti}
+                  data={dataTds}
                   width={Dimensions.get("window").width - 50} // from react-native
                   height={220}
                   yAxisLabel={""}

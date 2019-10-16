@@ -16,6 +16,7 @@ import Page1 from './komponen/1Page'
 import Page2 from './komponen/2Page'
 import Page3 from './komponen/3Page'
 import Page4 from './komponen/4Page'
+import Page5 from './komponen/5Page'
 import Footer from './komponen/0Footer'
 
 class App extends React.Component {
@@ -34,6 +35,7 @@ class App extends React.Component {
     var cover2 = {judul: '🌡 UnaSense', color: '#FF8C00', gambar: require('./komponen/cover2.jpg')}
     var cover3 = {judul: '🔭 UnaPredict', color: '#30c39e', gambar: require('./komponen/cover3.jpg')}
     var cover4 = {judul: '🛍 UnaStore', color: '#6A8AC3', gambar: require('./komponen/cover4.jpg')}
+    var cover5 = {judul: '🐟 UnaFeeder', color: '#EE82EE', gambar: require('./komponen/cover5.jpg')}
 
     return (
       <ViewPager
@@ -61,6 +63,13 @@ class App extends React.Component {
           </View>
           <Page1 host={this.state.host}/>
           <Footer warna={cover1.color} judul={cover1.judul} gambar={cover1.gambar}/>
+        </View>
+
+        {/* halaman 2 */}
+        <View key="5" style={{backgroundColor:cover5.color}}>
+          <TopCover warna={cover5.color} judul={cover5.judul} gambar={cover5.gambar}/>
+          <Page5 host={this.state.host}/>
+          <Footer warna={cover5.color} judul={cover5.judul} gambar={cover5.gambar}/>
         </View>
 
         {/* halaman 2 */}
