@@ -11,7 +11,7 @@ class UserCart extends Component{
         }
     }
     componentDidMount(){
-        var url = `http://localhost:1234/cart/${this.props.match.params.uid}`
+        var url = `${this.props.host}/cart/${this.props.match.params.uid}`
         console.log(this.props.match.params.uid)
         axios.get(url)
         .then((x)=>{

@@ -8,7 +8,9 @@ import HomeNoLogin from './komponen/1HomeNoLogin'
 import HomeLogin from './komponen/1HomeLogin'
 import ProfilUser from './komponen/2ProfilUser'
 import UnaStore from './komponen/3UnaStore'
-import UnaSense from './komponen/4UnaSense'
+// import UnaSense from './komponen/4UnaSense'
+import UnaSense from './komponen/4UnaXDK'
+import UnaFeeder from './komponen/4UnaFeeder'
 import UserCart from './komponen/5UserCart'
 import UnaPredict from './komponen/6UnaPredict'
 
@@ -18,7 +20,8 @@ class App extends Component {
     super()
     this.state = {
       user: '', statusLogin: false,
-      nama: '', email: '', password: ''
+      nama: '', email: '', password: '',
+      host: 'http://localhost:1234'
     }
   }
 
@@ -101,6 +104,12 @@ class App extends Component {
                     <li className="active">
                       <a href="/">
                         Beranda
+                      </a>
+                    </li>
+                    <li className="ml-lg-4">
+                      <a href={`/unafeeder/${2611}`}>
+                        <i className="fas fa-fish"></i>
+                        &nbsp;UnaFeeder
                       </a>
                     </li>
                     <li className="mx-lg-4 mx-md-3 my-md-0 my-2">
@@ -376,11 +385,18 @@ class App extends Component {
 
         <div>
           <Route exact path="/" component={(this.state.statusLogin) ? HomeLogin : HomeNoLogin}/>
-          <Route path="/profil" render={(props) => <ProfilUser {...props} user={this.state.user} />}/>
-          <Route path="/unastore" render={(props) => <UnaStore {...props} user={this.state.user} />}/>
-          <Route path="/unasense/:iid" render={(props) => <UnaSense {...props} user={this.state.user} />}/>
-          <Route path="/unaml" render={(props) => <UnaPredict {...props} user={this.state.user} />}/>
-          <Route path="/cart/:uid" render={(props) => <UserCart {...props} user={this.state.user} />}/>
+          <Route path="/profil" render={(props) => <ProfilUser {...props} user={this.state.user} host={this.state.host}/>}/>
+          <Route path="/unastore" render={(props) => <UnaStore {...props} user={this.state.user} host={this.state.host}/>}/>
+
+          {/* unasense esp32 */}
+          {/* <Route path="/unasense/:iid" render={(props) => <UnaSense {...props} user={this.state.user} host={this.state.host}/>}/> */}
+          
+          {/* unasense xdk bosch */}
+          <Route path="/unasense/:xid" render={(props) => <UnaSense {...props} user={this.state.user} host={this.state.host}/>}/>
+          <Route path="/unafeeder/:xid" render={(props) => <UnaFeeder {...props} user={this.state.user} host={this.state.host}/>}/>
+
+          <Route path="/unaml" render={(props) => <UnaPredict {...props} user={this.state.user} host={this.state.host}/>}/>
+          <Route path="/cart/:uid" render={(props) => <UserCart {...props} user={this.state.user} host={this.state.host}/>}/>
         </div>
 
       </div>

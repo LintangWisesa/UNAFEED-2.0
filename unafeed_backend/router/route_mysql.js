@@ -257,11 +257,67 @@ router.get('/iotlast/:iid', (req, res) => {
     })
 })
 
-// xdk
-router.post('/xdk', (req, res) => {
+// =============================================
+
+// test xdk
+router.post('/tesxdk', (req, res) => {
     data = req.body
     console.log(data)
     res.send(data)
+})
+
+router.post('/xdk', (req, res) => {
+    var dbStat = 'insert into unaxdk (xid, xsuhu, xdo, xph, xamonia, xtds, xtangki) values (?,?,?,?,?,?,?)'
+    xid = req.body.xid
+    xsuhu = req.body.xsuhu
+    xdo = req.body.xdo
+    xph = req.body.xph
+    xamonia = req.body.xamonia
+    xtds = req.body.xtds
+    xtangki = req.body.xtangki
+    db.query(dbStat, [xid, xsuhu, xdo, xph, xamonia, xtds, xtangki], (error, output) => {
+        if(error){
+            console.log(error)
+        } else {
+            console.log(output)
+            res.send({
+                status: 'ok',
+                xid: req.body.xid,
+                xsuhu: req.body.xsuhu,
+                xdo: req.body.xdo,
+                xph: req.body.xph,
+                xamonia: req.body.xamonia,
+                xtds: req.body.xtds,
+                xtangki: req.body.xtangki
+            })
+        }
+    })
+})
+
+// get iot data (unaxdk) by id alat iid
+router.get('/xdk/:xid', (req, res) => {
+    var dbStat = 'select * from unaxdk where xid = ?'
+    db.query(dbStat, req.params.xid, (error, output) => {
+        if(error){
+            console.log(error)
+        } else {
+            console.log(output)
+            res.send(output)
+        }
+    })
+})
+
+// get LATEST iot data (unasense) by id alat iid
+router.get('/xdklast/:xid', (req, res) => {
+    var dbStat = 'select * from unaxdk where xid = ? order by xtime desc limit 1'
+    db.query(dbStat, req.params.xid, (error, output) => {
+        if(error){
+            console.log(error)
+        } else {
+            console.log(output)
+            res.send(output[0])
+        }
+    })
 })
 
 module.exports = router

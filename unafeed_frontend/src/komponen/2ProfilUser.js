@@ -43,7 +43,7 @@ class ProfilUser extends Component{
                 'Content-Type': 'multipart/form-data'
             }
         };
-        var url = 'http://localhost:1234/file'
+        var url = `${this.props.host}/file`
         axios.post(url, formData, config)
         .then((response) => {
             alert("OK");
@@ -78,7 +78,7 @@ class ProfilUser extends Component{
         })
     }
     updateProfil = ()=>{
-        var url = 'http://localhost:1234/update'
+        var url = `${this.props.host}/update`
         axios.put(url, {
             ufoto : this.state.fotoTerupload ? this.state.fotoTerupload : this.props.user.ufoto,
             ualamat : this.state.alamat ? this.state.alamat : this.props.user.ualamat,

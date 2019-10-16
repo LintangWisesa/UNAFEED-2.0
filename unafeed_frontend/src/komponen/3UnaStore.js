@@ -15,7 +15,7 @@ class UnaStore extends Component{
     }
 
     componentWillMount(){
-        var url = 'http://localhost:1234/product'
+        var url = `${this.props.host}/product`
         axios.get(url)
         .then((x)=>{
             console.log(x.data)
@@ -55,7 +55,7 @@ class UnaStore extends Component{
         var cuid = this.props.user.uid
         var cpid = this.state.produkTerpilih.pid
         var cjumlah = this.state.jumlah
-        var url = 'http://localhost:1234/cart'
+        var url = `${this.props.host}/cart`
         axios.post(url, {
             cpid: cpid, cuid: cuid, cjumlah: cjumlah
         })

@@ -14,8 +14,7 @@ class UnaSense extends Component{
     }
 
     componentDidMount(){
-        var url = `${this.props.host}/iot/${this.props.match.params.iid}`
-        console.log(this.props.match.params.uid)
+        var url = `${this.props.host}/xdk/${this.props.match.params.xid}`
         axios.get(url)
         .then((x)=>{
             this.setState({
@@ -30,35 +29,35 @@ class UnaSense extends Component{
 
     render(){
 
-        var suhuUdara = []
-        var suhuAir = []
-        var lembabUdara = []
-        var pressureUdara = []
-        var altitude = []
-        var tangki = []
+        var xsuhu = []
+        var xdo = []
+        var xph = []
+        var xamonia = []
+        var xtds = []
+        var xtangki = []
         var time = []
         var hari = []
         var dataIotMap = this.state.dataIot.map((val, i)=>{
-            suhuUdara.push(val.isuhuu)
-            suhuAir.push(val.isuhua)
-            lembabUdara.push(val.ilembab)
-            pressureUdara.push(val.ipressu)
-            altitude.push(val.ialti)
-            tangki.push(val.itangki)
+            xsuhu.push(val.xsuhu)
+            xdo.push(val.xdo)
+            xph.push(val.xph)
+            xamonia.push(val.xamonia)
+            xtds.push(val.xtds)
+            xtangki.push(val.xtangki)
             
-            var tgl = val.itime.split('T')[0]
-            var jam = val.itime.split('T')[1]
+            var tgl = val.xtime.split('T')[0]
+            var jam = val.xtime.split('T')[1]
             hari.push(tgl)
             time.push(jam.split('.')[0])
             
             return 'ok'
         })
 
-        const dataSuhuUdara = {
+        const dataSuhu = {
             labels: time,
             datasets: [
               {
-                label: `Suhu Udara (°C) - ${hari[0]}`,
+                label: `Suhu Air (°C)`,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(75,192,192,0.4)',
@@ -76,16 +75,16 @@ class UnaSense extends Component{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: suhuUdara
+                data: xsuhu
               }
             ]
         };
 
-        const dataSuhuAir = {
+        const dataDo = {
             labels: time,
             datasets: [
               {
-                label: `Suhu Air (°C) - ${hari[0]}`,
+                label: `DO`,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(34, 167, 240,0.4)',
@@ -103,16 +102,16 @@ class UnaSense extends Component{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: suhuAir
+                data: xdo
               }
             ]
         };
 
-        const dataLembabUdara = {
+        const dataPh = {
             labels: time,
             datasets: [
               {
-                label: `Kelembaban Udara (%) - ${hari[0]}`,
+                label: `Ph`,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(255, 203, 5,0.4)',
@@ -130,16 +129,16 @@ class UnaSense extends Component{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: lembabUdara
+                data: xph
               }
             ]
         };
 
-        const dataPressUdara = {
+        const dataAmonia = {
             labels: time,
             datasets: [
               {
-                label: `Tekanan Udara (Pa) - ${hari[0]}`,
+                label: `Amonia`,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(46, 204, 113,0.4)',
@@ -157,16 +156,16 @@ class UnaSense extends Component{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: pressureUdara
+                data: xamonia
               }
             ]
         };
 
-        const dataAlti = {
+        const dataTds = {
             labels: time,
             datasets: [
               {
-                label: `Altitude (m) - ${hari[0]}`,
+                label: `DTS`,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(255, 148, 120,0.4)',
@@ -184,7 +183,7 @@ class UnaSense extends Component{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: altitude
+                data: xtds
               }
             ]
         };
@@ -193,7 +192,7 @@ class UnaSense extends Component{
             labels: time,
             datasets: [
               {
-                label: `Kapasitas Tangki (%) - ${hari[0]}`,
+                label: `Kapasitas Tangki (%)`,
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(191, 85, 236,0.4)',
@@ -211,7 +210,7 @@ class UnaSense extends Component{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: tangki
+                data: xtangki
               }
             ]
         };
@@ -224,74 +223,7 @@ class UnaSense extends Component{
                         <h3 className="title-w3 pt-sm-5 text-wh font-weight-bold">
                             UnaSense
                         </h3>
-                        <p>Pantau kondisi kolam sidat & <b>UnaFeeder</b> Anda</p>
-                        
-                        {/* kontrol unafeeder */}
-                        <hr/>
-                        <h3 className='mt-5'>
-                            <i style={{color:'lightpink'}} className="fas fa-fish"></i>&nbsp;Kontrol UnaFeeder
-                        </h3>
-                        <div className="d-flex team-w3ls-row pt-xl-5 pt-md-3">
-
-                            <div className='col-sm-12 col-md-3'>
-                                <p>Jumlah sidat @kolam</p>
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <label className="input-group-text" for="inputGroupSelect01">
-                                            <i class="fas fa-mouse-pointer"></i>
-                                        </label>
-                                    </div>
-                                    <input type='number' className="custom-select" placeholder='Ketik sini ...'/>
-                                </div>
-                            </div>
-
-                            <div className='col-sm-12 col-md-3'>
-                                <p>Umur rerata sidat @kolam</p>
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <label className="input-group-text" for="inputGroupSelect01">
-                                            <i class="fas fa-mouse-pointer"></i>
-                                        </label>
-                                    </div>
-                                    <input type='number' className="custom-select" placeholder='Ketik sini ...'/>
-                                </div>
-                            </div>
-
-                            <div className='col-sm-12 col-md-3'>
-                                <p>Bobot rerata sidat @kolam</p>
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <label className="input-group-text" for="inputGroupSelect01">
-                                            <i class="fas fa-mouse-pointer"></i>
-                                        </label>
-                                    </div>
-                                    <input type='number' className="custom-select" placeholder='Ketik sini ...'/>
-                                </div>
-                            </div>
-
-                            <div className='col-sm-12 col-md-3'>
-                                <p>Frekuensi pemberian pakan</p>
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <label className="input-group-text" for="inputGroupSelect01">
-                                            <i class="fas fa-mouse-pointer"></i>
-                                        </label>
-                                    </div>
-                                    <select className="custom-select" id="inputGroupSelect01">
-                                        <option selected>Pilih ...</option>
-                                        <option value="1">4 kali</option>
-                                        <option value="2">5 kali</option>
-                                        <option value="3">6 kali</option>
-                                        <option value="4">7 kali</option>
-                                        <option value="5">8 kali</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <button className='mb-3 btn btn-lg btn-info btn-block'>
-                            Terapkan&nbsp;<i class="fas fa-cloud-upload-alt"></i>
-                        </button>
+                        <p>Pantau kondisi kolam sidat dengan <b>UnaSense</b> (XDK Bosch)</p>
 
                         {/* latest */}
                         <hr/>
@@ -302,43 +234,43 @@ class UnaSense extends Component{
                             
                             <div className='col-sm-12 col-md-2 mb-5'>
                                 <div className="text-center font-weight-bold p-3 alert alert-info" role="alert">
-                                    <small>Suhu&nbsp;Udara&nbsp;(°C)</small>
-                                    <h1>{suhuUdara[suhuUdara.length - 1]}</h1>
+                                    <small>Suhu&nbsp;Air&nbsp;(°C)</small>
+                                    <h1>{xsuhu[xsuhu.length - 1]}</h1>
                                 </div>
                             </div>
 
                             <div className='col-sm-12 col-md-2 mb-5'>
                                 <div className="text-center font-weight-bold p-3 alert alert-primary" role="alert">
-                                    <small>Suhu&nbsp;Air&nbsp;(°C)</small>
-                                    <h1>{suhuAir[suhuAir.length - 1]}</h1>
+                                    <small>O<sub>2</sub> Terlarut&nbsp;(mg/L)</small>
+                                    <h1>{xdo[xdo.length - 1]}</h1>
                                 </div>
                             </div>
 
                             <div className='col-sm-12 col-md-2 mb-5'>
                                 <div className="text-center font-weight-bold p-3 alert alert-warning" role="alert">
-                                    <small>Kelembaban&nbsp;(%)</small>
-                                    <h1>{lembabUdara[lembabUdara.length - 1]}</h1>
+                                    <small>Ph&nbsp;</small>
+                                    <h1>{xph[xph.length - 1]}</h1>
                                 </div>
                             </div>
 
                             <div className='col-sm-12 col-md-2 mb-5'>
                                 <div className="text-center font-weight-bold p-3 alert alert-success" role="alert">
-                                    <small>Tekanan&nbsp;Udara&nbsp;(Pa)</small>
-                                    <h1>{pressureUdara[pressureUdara.length - 1]}</h1>
+                                    <small>Kadar Amonia&nbsp;(mg/L)</small>
+                                    <h1>{xamonia[xamonia.length - 1]}</h1>
                                 </div>
                             </div>
 
                             <div className='col-sm-12 col-md-2 mb-5'>
                                 <div className="text-center font-weight-bold p-3 alert alert-dark bg-warning" role="alert">
-                                    <small>Altitude&nbsp;(m)</small>
-                                    <h1>{altitude[altitude.length - 1]}</h1>
+                                    <small>TDS&nbsp;(mg/L)</small>
+                                    <h1>{xtds[xtds.length - 1]}</h1>
                                 </div>
                             </div>
 
                             <div className='col-sm-12 col-md-2 mb-5'>
                                 <div className="text-center font-weight-bold p-3 alert alert-dark bg-purple" role="alert">
                                     <small>Tangki&nbsp;(%)</small>
-                                    <h1>{tangki[tangki.length - 1]}</h1>
+                                    <h1>{xtangki[xtangki.length - 1]}</h1>
                                 </div>
                             </div>
 
@@ -349,32 +281,38 @@ class UnaSense extends Component{
                         <div className="d-flex team-w3ls-row pt-xl-5 pt-md-3">
                             
                             <div className='col-sm-6 mb-5'>
-                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>&nbsp;Suhu Udara (°C)</h3>
-                                <Line data={dataSuhuUdara} />
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;Suhu Air (°C)</h3>
+                                <Line data={dataSuhu} />
                             </div>
 
                             <div className='col-sm-6 mb-5'>
-                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>&nbsp;Suhu Air (°C)</h3>
-                                <Line data={dataSuhuAir} />
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;O<sub>2</sub> Terlarut (mg/L)</h3>
+                                <Line data={dataDo} />
                             </div>
 
                             <div className='col-sm-6 mb-5'>
-                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>&nbsp;Kelembaban Udara (%)</h3>
-                                <Line data={dataLembabUdara} />
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;Ph</h3>
+                                <Line data={dataPh} />
                             </div>
 
                             <div className='col-sm-6 mb-5'>
-                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>&nbsp;Tekanan Udara (Pa)</h3>
-                                <Line data={dataPressUdara} />
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;Kadar Amonia (mg/L)</h3>
+                                <Line data={dataAmonia} />
                             </div>
 
                             <div className='col-sm-6 mb-5'>
-                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>&nbsp;Altitude (mdpl)</h3>
-                                <Line data={dataAlti} />
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;TDS (mg/L)</h3>
+                                <Line data={dataTds} />
                             </div>
 
                             <div className='col-sm-6 mb-5'>
-                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>&nbsp;Kapasitas Tangki (%)</h3>
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;Isi Tangki (%)</h3>
                                 <Line data={dataTangki} />
                             </div>
 
