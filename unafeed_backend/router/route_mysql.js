@@ -257,4 +257,11 @@ router.get('/iotlast/:iid', (req, res) => {
     })
 })
 
+// xdk
+router.post('/xdk', (req, res) => {
+    data = req.body
+    console.log(data)
+    res.send(data)
+})
+
 module.exports = router
