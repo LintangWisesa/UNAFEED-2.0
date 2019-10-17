@@ -7,7 +7,8 @@ class UnaFeeder extends Component{
         super()
         this.state = {
             statusmixer: 'OFF', buttonmixer: 'ON', butmix: 'btn btn-info btn-lg btn-block',
-            statusextruder: 'OFF', buttonextruder: 'ON', butext: 'btn btn-info btn-lg btn-block'
+            statusextruder: 'OFF', buttonextruder: 'ON', butext: 'btn btn-info btn-lg btn-block',
+            bobottotal: 0, bobotsatuan: 0, rekomen: false, jumlahsidat: 0, bobotpakan: 0
         }
     }
 
@@ -17,11 +18,13 @@ class UnaFeeder extends Component{
                 statusmixer: 'ON', buttonmixer: 'OFF', 
                 butmix: 'btn btn-warning btn-lg btn-block',
             })
+            alert('🔵 Mixer Status: ON 🔵')
         } else {
             this.setState({
                 statusmixer: 'OFF', buttonmixer: 'ON', 
                 butmix: 'btn btn-info btn-lg btn-block',
             })
+            alert('🔴 Mixer Status: OFF 🔴')
         }
     }
 
@@ -31,11 +34,13 @@ class UnaFeeder extends Component{
                 statusextruder: 'ON', buttonextruder: 'OFF', 
                 butext: 'btn btn-warning btn-lg btn-block',
             })
+            alert('🔵 Extruder Status: ON 🔵')
         } else {
             this.setState({
                 statusextruder: 'OFF', buttonextruder: 'ON', 
                 butext: 'btn btn-info btn-lg btn-block',
             })
+            alert('🔴 Extruder Status: OFF 🔴')
         }
     }
 
@@ -84,9 +89,24 @@ class UnaFeeder extends Component{
                         <hr/>
                         <h3 className='mt-5'>
                             <i style={{color:'lightpink'}} className="fas fa-fish"></i>
-                            &nbsp;Kontrol Semi Otomatis
+                            &nbsp;Kontrol Otomatis
                         </h3>
                         <div className="d-flex team-w3ls-row pt-xl-5 pt-md-3">
+                        
+                            <div className='col-sm-12 col-md-3'>
+                                <p className='mb-2'><b>Bobot total sidat (gr)</b></p>
+                                <div className="input-group mb-3">
+                                    <div className="input-group-prepend">
+                                        <label className="input-group-text" for="inputGroupSelect01">
+                                            <i class="fas fa-mouse-pointer"></i>
+                                        </label>
+                                    </div>
+                                    <input 
+                                    onInput = {() => {this.setState({bobottotal: this.refs.bobottotal.value})}}
+                                    ref = 'bobottotal'
+                                    type='number' className="custom-select" placeholder='Ketik sini ...'/>
+                                </div>
+                            </div>
 
                             <div className='col-sm-12 col-md-3'>
                                 <p className='mb-2'><b>Bobot satuan sidat (gr)</b></p>
@@ -96,19 +116,10 @@ class UnaFeeder extends Component{
                                             <i class="fas fa-mouse-pointer"></i>
                                         </label>
                                     </div>
-                                    <input type='number' className="custom-select" placeholder='Ketik sini ...'/>
-                                </div>
-                            </div>
-
-                            <div className='col-sm-12 col-md-3'>
-                                <p className='mb-2'><b>Bobot total sidat (gr)</b></p>
-                                <div className="input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <label className="input-group-text" for="inputGroupSelect01">
-                                            <i class="fas fa-mouse-pointer"></i>
-                                        </label>
-                                    </div>
-                                    <input type='number' className="custom-select" placeholder='Ketik sini ...'/>
+                                    <input
+                                    onInput = {() => {this.setState({bobotsatuan: this.refs.bobotsatuan.value})}}
+                                    ref = 'bobotsatuan'
+                                    type='number' className="custom-select" placeholder='Ketik sini ...'/>
                                 </div>
                             </div>
 
@@ -121,21 +132,42 @@ class UnaFeeder extends Component{
                                         </label>
                                     </div>
                                     <select className="custom-select" id="inputGroupSelect01">
-                                        <option selected value="0">3 kali</option>
-                                        <option value="1">4 kali</option>
-                                        <option value="2">5 kali</option>
-                                        <option value="3">6 kali</option>
+                                        <option selected value="0">3 kali/hari</option>
+                                        <option value="1">4 kali/hari</option>
+                                        <option value="2">5 kali/hari</option>
+                                        <option value="3">6 kali/hari</option>
                                         <option value="3">Rekomendasi kami</option>
                                     </select>
                                 </div>
                             </div>
                             
                             <div className='col-sm-12 col-md-3'>
-                                <button style={{height: '80px'}} className='mb-3 btn btn-lg btn-info btn-block'>
+                                <button 
+                                onClick={
+                                    ()=>{
+                                        alert('Setting Unafeeder 🆗')
+                                        this.setState({
+                                            jumlahsidat: parseInt(this.state.bobottotal / this.state.bobotsatuan),
+                                            bobotpakan: parseFloat(0.03 * this.state.bobottotal),
+                                            rekomen: true
+                                        })
+                                    }
+                                }
+                                style={{height: '80px'}} className='mb-3 btn btn-lg btn-info btn-block'>
                                     Terapkan&nbsp;<i class="fas fa-cloud-upload-alt"></i>
                                 </button>
                             </div>
 
+                        </div>
+
+                        <div>
+                            <p style={{fontSize: '18px'}}>
+                            {
+                                this.state.rekomen ? 
+                                `ANALISA: Jumlah sidat dalam kolam ${this.state.jumlahsidat} ekor, rekomendasi total pakan per hari ${this.state.bobotpakan} gr.` :
+                                ''
+                            }
+                            </p>
                         </div>
 
                     </div>

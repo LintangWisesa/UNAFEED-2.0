@@ -6,79 +6,59 @@ import {
   Text,
   Image,
   Button,
+  TextInput,
   Alert,
+  TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
 import {
     Colors
 } from 'react-native/Libraries/NewAppScreen';
-import axios from 'axios'
 
-class Page4 extends React.Component {
+class Page5 extends React.Component {
 
   constructor(){
     super()
     this.state = {
-      produk: []
+        statusmixer: 'OFF', buttonmixer: 'ON', butmix: '#20B2AA',
+        statusextruder: 'OFF', buttonextruder: 'ON', butext: '#20B2AA',
+        rekomen: false, bobottotal: 0, bobotsatuan: 0, jumlahsidat: 0, bobotpakan: 0
     }
   }
 
-  componentDidMount(){
-    var root = '/product'
-    axios.get(this.props.host + root)
-    .then((x)=>{
-      this.setState({
-        produk: x.data
-      })
-    }).catch((x)=>{
-      console.log(x)
-    })
+  mixer = () => {
+      if(this.state.statusmixer == 'OFF'){
+          this.setState({
+              statusmixer: 'ON', buttonmixer: 'OFF', 
+              butmix: '#FFA500',
+          })
+          Alert.alert('Mixer Status: ON 🔵')
+      } else {
+          this.setState({
+              statusmixer: 'OFF', buttonmixer: 'ON', 
+              butmix: '#20B2AA',
+          })
+          Alert.alert('Mixer Status: OFF 🔴')
+      }
+  }
+
+  extruder = () => {
+      if(this.state.statusextruder == 'OFF'){
+          this.setState({
+              statusextruder: 'ON', buttonextruder: 'OFF', 
+              butext: '#FFA500',
+          })
+          Alert.alert('Extruder Status: ON 🔵')
+      } else {
+          this.setState({
+              statusextruder: 'OFF', buttonextruder: 'ON', 
+              butext: '#20B2AA',
+          })
+          Alert.alert('Extruder Status: OFF 🔴')
+      }
   }
 
   render() {
-
-    var star = '⭐'
-    var loading = 
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    var listProduk = this.state.produk.map((val, i)=>{
-      return(
-        <View key={i}>
-        <View key={i} style={styles.sectionContainer}>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
-            {/* product picture */}
-            <View style={{flex:1, width: 90, height: 90}}>
-              <Image
-              style={{width: 90, height: 90}}
-              source={{uri: this.props.host + `/file/store${val.pid}.png`}}
-              />
-            </View>
-            {/* short description */}
-            <View style={{flex:2, width: 90, height: 90, paddingHorizontal:20}}>
-              <Text style={styles.sectionTitle}>
-                {val.pnama}
-              </Text>
-              <Text style={styles.sectionDescription}>
-                {`${star.repeat(parseInt(val.prating))}`}
-              </Text>
-              <Text style={styles.sectionDescription}>
-                {`💵  Rp ${val.pharga}/${val.psatuan}`}
-              </Text>
-            </View>
-            <View style={{flex:1, width: 90, height: 90}}>
-              <Button
-                title="🛒  Beli"
-                color='#20B2AA'
-                onPress={() => Alert.alert('🚧  Maaf sedang perbaikan  🚧')}
-              />
-            </View>
-          </View>
-        </View>
-        <View style={styles.separator}/>
-        </View>
-      )
-    })
 
     return (
         <ScrollView
@@ -86,22 +66,100 @@ class Page4 extends React.Component {
         style={styles.scrollView}>
             <View style={styles.body}>
 
-              <View style={styles.sectionContainerStore}>
-                <Text style={styles.sectionTitleStore}>
-                  Lengkapi kebutuhan budidaya sidat Anda bersama 
-                  <Text style={styles.highlight}>
-                    &nbsp;UnaStore
-                  </Text>
-                  !
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionTitle}>
+                  🎮  Kontrol Manual
                 </Text>
               </View>
+              <View style={styles.sectionContainer}>
+                  
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{flex:1, marginHorizontal: 10}}>
+                    <Text style={{textAlign:'center', marginBottom: 5}}>
+                      Status Mixer :
+                      <Text style={{fontWeight: 'bold'}}>
+                        &nbsp;{this.state.statusmixer}
+                      </Text>
+                    </Text>
+                    <TouchableOpacity
+                    onPress={this.mixer}
+                    style={{ flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: this.state.butmix, height: 60}}
+                    >
+                      <Text style={{color: 'white'}}>
+                        MIXER {this.state.buttonmixer}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{flex:1, marginHorizontal: 10}}>
+                    <Text style={{textAlign:'center', marginBottom: 5}}>
+                      Status Extruder :
+                      <Text style={{fontWeight: 'bold'}}>
+                        &nbsp;{this.state.statusextruder}
+                      </Text>
+                    </Text>
+                    <TouchableOpacity
+                    onPress={this.extruder}
+                    style={{ flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: this.state.butext, height: 50}}
+                    >
+                      <Text style={{color: 'white'}}>
+                        EXTRUDER {this.state.buttonextruder}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                </View>
+              </View>
+
               <View style={styles.separator}/>
 
-              {this.state.produk ? listProduk : loading}
+              <View style={styles.sectionContainer}>
+                <Text style={styles.sectionTitle}>
+                  🎮  Kontrol Otomatis
+                </Text>
+              </View>
 
-              <View style={styles.sectionContainerStore2}>
-                <Text style={styles.sectionTitleStore}>
-                  ❤  Mudah, murah dan amanah  ❤
+              <View style={styles.sectionContainer}>
+                <TextInput
+                  placeholder=' 📝 Bobot total sidat (gr) ...'
+                  style={{ height: 40, borderColor: 'lightgray', borderWidth: 1, marginBottom:13 }}
+                  keyboardType='numeric'
+                  onChangeText={(text) => this.setState({bobottotal: text})}
+                />
+                <TextInput
+                  placeholder=' 📝 Bobot satuan sidat (gr) ...'
+                  style={{ height: 40, borderColor: 'lightgray', borderWidth: 1, marginBottom:13 }}
+                  keyboardType='numeric'
+                  onChangeText={(text) => this.setState({bobotsatuan: text})}
+                />
+                <TextInput
+                  placeholder=' 📝 Frekuensi pemberian pakan /hari ...'
+                  style={{ height: 40, borderColor: 'lightgray', borderWidth: 1, marginBottom:13 }}
+                  keyboardType='numeric'
+                />
+                <TouchableOpacity
+                  onPress={
+                    ()=>{
+                      Alert.alert('Setting Unafeeder 🆗')
+                      this.setState({
+                        rekomen: true,
+                        jumlahsidat: parseInt(this.state.bobottotal / this.state.bobotsatuan),
+                        bobotpakan: parseFloat(0.03 * this.state.bobottotal)
+                      })
+                    }
+                  }
+                  style={{ flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#20B2AA', height: 50, marginBottom: 10}}
+                  >
+                  <Text style={{color: 'white'}}>
+                    Terapkan  🆗
+                  </Text>
+                </TouchableOpacity>
+                <Text style={{marginVertical:5}}>
+                  {
+                    this.state.rekomen ?
+                    `Jumlah sidat: ${this.state.jumlahsidat}, rekomendasi total pakan harian: ${this.state.bobotpakan} gr.` :
+                    ''
+                  }
                 </Text>
               </View>
 
@@ -170,4 +228,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Page4;
+export default Page5;
