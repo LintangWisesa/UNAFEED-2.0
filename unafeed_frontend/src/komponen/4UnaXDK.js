@@ -215,6 +215,54 @@ class UnaSense extends Component{
             ]
         };
 
+        const dataBobotIdeal = {
+            labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            datasets: [
+              {
+                label: `Bobot Ideal`,
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(75,192,192,1)',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                pointHoverBorderColor: 'rgba(75,192,192,1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [6, 9, 13.5, 20.25, 30.38, 45.56, 68.34, 102.52, 153.77, 230.66]
+              },
+              {
+                label: `Bobot Sidat Unafeed`,
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: 'rgba(191, 85, 236,0.4)',
+                borderColor: 'rgba(191, 85, 236,1)',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(191, 85, 236,1)',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(191, 85, 236,1)',
+                pointHoverBorderColor: 'rgba(191, 85, 236,1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [8, 10.4, 15.5, 25.5, 33.2, 49, 70.24, 108.9, 160, 245]
+              }
+            ]
+        };
+
         return(
             <div>
                 <div style={{paddingTop: '50px'}}></div>
@@ -276,6 +324,17 @@ class UnaSense extends Component{
 
                         </div>
                         
+                        {/* graph */}
+                        <hr/>
+                        <div className="d-flex team-w3ls-row pt-xl-5 pt-md-3">
+                            
+                            <div className='col-sm-12 mb-5'>
+                                <h3 className='mb-2'><i style={{color:'lightpink'}} className="fas fa-chart-line"></i>
+                                &nbsp;Bobot Ideal vs Bobot Real Unafeed</h3>
+                                <Line data={dataBobotIdeal} />
+                            </div>
+                        </div>
+
                         {/* graph */}
                         <hr/>
                         <div className="d-flex team-w3ls-row pt-xl-5 pt-md-3">

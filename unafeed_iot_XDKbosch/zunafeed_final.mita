@@ -1,0 +1,72 @@
+// control mixer, extruder & stop dg sound buzzer
+
+package main;
+import platforms.xdk110;
+
+setup pin : GPIO {
+	var out0 = digitalOut(PA0, false);  // led 0 on PA0 with resistor 220ohm
+    var out1 = digitalOut(PA1, false);	// led 1 on PA1 with resistor 220ohm
+    var buz = digitalOut(PB2, false);
+}
+
+setup wifi : WLAN {
+  authentication = Personal(psk = "BoschCoSpace");
+  ssid = "Robert_Bosch_AP01";
+}
+
+setup server : HttpRestClient {
+  transport = wifi;
+  endpointBase = 'http://192.168.0.134:1234/xdk';
+  var root = resource('/', 'application/json', POST);
+}
+
+every 60 seconds {
+    var xid = 2611;
+    var xsuhu = 22.3;
+    var xdo = 6.2;
+    var xph = 7.3;
+    var xamonia = 0.021;
+    var xtds = 252.9;
+    var xtangki = 44;
+
+    var json = `{
+    "xid":${xid}, "xsuhu":${xsuhu}, "xdo":${xdo}, "xph":${xph}, 
+    "xamonia":${xamonia}, "xtds":${xtds}, "xtangki":${xtangki}
+    }`;
+    println(json);
+    server.root.write(json);
+}
+
+var toogle = true;
+every button_one.pressed {
+	if(toogle){
+        pin.buz.write(true);
+		pin.out0.write(true);
+		pin.out1.write(false);
+		toogle = false;
+	} else {
+        pin.buz.write(true);
+		pin.out0.write(false);
+		pin.out1.write(true);
+		toogle = true;
+	}
+}
+
+every button_two.pressed {
+	pin.buz.write(true);
+    pin.out0.write(false);
+	pin.out1.write(false);
+	toogle = false;	
+}
+
+every button_one.released {
+    pin.buz.write(false);
+}
+
+every button_two.released {
+    pin.buz.write(false);
+}
+
+// tekan tombol 1 1x = mixer
+// tekan tombol 1 berikutnya = extruder
+// tekan tombol 2 = stop

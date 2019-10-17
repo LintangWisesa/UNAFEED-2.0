@@ -25,7 +25,7 @@ class App extends React.Component {
     super()
     this.state = {
       // host backend
-      host: 'http://192.168.0.134:1234'  
+      host: 'http://192.168.43.15:1234'  
     }
   }
 

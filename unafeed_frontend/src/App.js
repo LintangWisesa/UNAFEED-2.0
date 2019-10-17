@@ -21,7 +21,7 @@ class App extends Component {
     this.state = {
       user: '', statusLogin: false,
       nama: '', email: '', password: '',
-      host: 'http://localhost:1234'
+      host: 'http://192.168.43.15:1234'
     }
   }
 
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   login = () => {
-    var url = 'http://localhost:1234/login'
+    var url = 'http://192.168.43.15:1234/login'
     axios.post(url, {
       uemail: this.state.email,
       upassword: this.state.password
@@ -58,7 +58,7 @@ class App extends Component {
   }
 
   signup = () => {
-    var url = 'http://localhost:1234/signup'
+    var url = 'http://192.168.43.15:1234/signup'
     axios.post(url, {
       unama: this.state.nama,
       uemail: this.state.email,
